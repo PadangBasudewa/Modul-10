@@ -1,6 +1,6 @@
-import React, { useState, useContext } from 'react';
-import { AuthContext } from './index';
-import * as firebase from 'firebase';
+import React, { useState, useContext } from "react";
+import { AuthContext } from "./index";
+import * as firebase from "firebase";
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -12,13 +12,15 @@ const Login = () => {
         e.preventDefault();
         firebase
             .auth()
-            .signInWithEmailAnsigndPassword(email, password)
+            .signInWithEmailAndPassword(email, password)
             .then(res => {
                 if (res.user) Auth.setLoggedIn(true);
             })
             .catch(e => {
                 setErrors(e.message);
-            })
+            });
+        // console.log(Auth);
+        // Auth.setLoggedIn(true);
     };
 
     return (
@@ -30,18 +32,22 @@ const Login = () => {
                     onChange={e => setEmail(e.target.value)}
                     name="email"
                     type="email"
-                    placeholder="email" />
+                    placeholder="email"
+                />
                 <input
-                    value={password}
                     onChange={e => setPassword(e.target.value)}
                     name="password"
+                    value={password}
                     type="password"
-                    placeholder="password" />
+                    placeholder="password"
+                />
                 <hr />
                 <button class="googleBtn" type="button">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
-                        alt="logo" />
-                     Login With Google
+                    <img
+                        src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
+                        alt="logo"
+                    />
+                    Login With Google
                 </button>
                 <button type="submit">Login</button>
                 <span>{error}</span>
